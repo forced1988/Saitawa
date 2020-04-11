@@ -44,13 +44,52 @@ namespace Saitawa
         }
 
 
-        public void Draw(GameTime time,Camera camera)
+        public void Draw(GameTime time, Camera camera)
         {
             sb.Begin(SpriteSortMode.Texture,BlendState.AlphaBlend);
 
+            // Map
+            // Fixed X/Y position (tile based => pixels = * tileSize)
 
-            
-          
+            // Viewport
+            // Screensize Width && Height
+
+            // Camera
+            // Use screensize && camera location to render the X/Y based map on the correct position
+
+            var cpCamera = camera.Position;
+            var tlCamera = camera.topLeft;
+            var brCamera = camera.bottomRight;
+
+            //00000000000
+            //00000000000
+            //00000000000
+
+            //0,1,2,3,4,5
+            //0,32,64,96,128,160ize;
+            for (int x = (int)camera.topLeft.X; x < (int)camera.bottomRight.X + tileSize; x += tileSize) {
+                for (int y = (int)camera.topLeft.Y; y < (int)camera.bottomRight.Y + tileSize; y += tileSize) {
+
+                    //WhereToDraw
+                    int textureIndexX = x / tileSize;
+                    int textureIndexY = y / tileSize;
+
+                    //TextureMapIndex
+                    var flatIndex = (textureIndexY * width + textureIndexX);
+
+                    float texturePositionX = textureIndexX * tileSize;
+                    float texturePositionY = textureIndexY * tileSize;
+
+
+                    sb.Draw(textureMap[flatIndex], new Vector2(texturePositionX, texturePositionY));
+                }
+
+            }
+
+            //tlCamera == (Map + offset)
+
+
+
             sb.End();
         }
     }

@@ -43,7 +43,7 @@ namespace Saitawa
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             camera = new Camera(GraphicsDevice);
-            map = new Map(spriteBatch,GraphicsDevice,100,100,16);
+            map = new Map(spriteBatch,GraphicsDevice,100,100,32);
             map.GenerateRandomMap();
 
             // TODO: use this.Content to load your game content here
@@ -84,6 +84,7 @@ namespace Saitawa
             GraphicsDevice.Clear(Color.Transparent);
             
             map.Draw(gameTime,camera);
+            camera.Draw(gameTime, spriteBatch);
 
             // TODO: Add your drawing code here
 
