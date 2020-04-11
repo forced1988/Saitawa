@@ -19,11 +19,12 @@ namespace Saitawa
 
         private Texture2D[] textureMap;
         private TextureGen textureGenerator;
+        private SpriteFont font;
         private int tileSize;
 
 
 
-        public Map(SpriteBatch sb, GraphicsDevice gd, int width, int height,int tileSize = 16)
+        public Map(SpriteBatch sb, GraphicsDevice gd, int width, int height,int tileSize = 16, SpriteFont font = null)
         {
             this.width = width;
             this.height = height;
@@ -32,6 +33,7 @@ namespace Saitawa
             this.tileSize = tileSize;
             this.textureMap = new Texture2D[width*height];
             this.textureGenerator = new TextureGen(gd);
+            this.font = font;
         }
 
 
@@ -46,7 +48,7 @@ namespace Saitawa
 
         public void Draw(GameTime time, Camera camera)
         {
-            sb.Begin(SpriteSortMode.Texture,BlendState.AlphaBlend);
+            //sb.Begin(SpriteSortMode.Texture,BlendState.AlphaBlend);
 
             // Map
             // Fixed X/Y position (tile based => pixels = * tileSize)
@@ -57,19 +59,18 @@ namespace Saitawa
             // Camera
             // Use screensize && camera location to render the X/Y based map on the correct position
 
-            var cpCamera = camera.Position;
-            var tlCamera = camera.topLeft;
-            var brCamera = camera.bottomRight;
-
-            //00000000000
-            //00000000000
-            //00000000000
 
             //0,1,2,3,4,5
-            //0,32,64,96,128,160ize;
-            for (int x = (int)camera.topLeft.X; x < (int)camera.bottomRight.X + tileSize; x += tileSize) {
-                for (int y = (int)camera.topLeft.Y; y < (int)camera.bottomRight.Y + tileSize; y += tileSize) {
+            //0,32,64,96,128,160;
 
+            int minX = Math.Max(0, (int)camera.TopLeft.X);
+            int minY = Math.Max(0, (int)camera.TopLeft.Y);
+
+            int maxX = Math.Min(width * tileSize, (int)camera.BottomRight.X);
+            int maxY = Math.Min(height * tileSize, (int)camera.BottomRight.Y);
+
+            for (int x = minX; x < maxX + tileSize; x += tileSize) {
+                for (int y = minY; y < maxY + tileSize; y += tileSize) {
                     //WhereToDraw
                     int textureIndexX = x / tileSize;
                     int textureIndexY = y / tileSize;
@@ -84,9 +85,13 @@ namespace Saitawa
                     float texturePositionX = textureIndexX * tileSize;
                     float texturePositionY = textureIndexY * tileSize;
 
-                    
+                    if(textureMap.Length <= flatIndex) {
+                        continue;
+                    }
 
                     sb.Draw(textureMap[flatIndex], new Vector2(texturePositionX, texturePositionY));
+                    sb.DrawString(this.font, $"{textureIndexX}", new Vector2(texturePositionX, texturePositionY), Color.Black);
+                    sb.DrawString(this.font, $"{textureIndexY}", new Vector2(texturePositionX, texturePositionY + 12), Color.Black);
                 }
 
             }
@@ -95,7 +100,7 @@ namespace Saitawa
 
 
 
-            sb.End();
+            //sb.End();
         }
     }
 }

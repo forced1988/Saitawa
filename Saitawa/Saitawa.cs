@@ -15,6 +15,9 @@ namespace Saitawa
         Map map;
         private Camera camera;
 
+        public int ScreenHeight { get; private set; }
+        public int ScreenWidth { get; private set; }
+
         public Saitawa()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -30,7 +33,8 @@ namespace Saitawa
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            ScreenHeight = graphics.PreferredBackBufferHeight;
+            ScreenWidth = graphics.PreferredBackBufferWidth;
             base.Initialize();
         }
 
@@ -43,7 +47,11 @@ namespace Saitawa
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             camera = new Camera(GraphicsDevice);
-            map = new Map(spriteBatch,GraphicsDevice,100,100,32);
+
+            SpriteFont font = Content.Load<SpriteFont>("fonts/Arial");
+
+
+            map = new Map(spriteBatch,GraphicsDevice,30,30,32, font);
             map.GenerateRandomMap();
 
             // TODO: use this.Content to load your game content here
@@ -68,6 +76,8 @@ namespace Saitawa
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            camera.Update(gameTime);
+
             camera.HandleInput(gameTime);
 
             // TODO: Add your update logic here
@@ -82,10 +92,17 @@ namespace Saitawa
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Transparent);
-            
-            map.Draw(gameTime,camera);
+
+
+            spriteBatch.Begin(transformMatrix: camera.Transform);
+
+            map.Draw(gameTime, camera);
             camera.Draw(gameTime, spriteBatch);
 
+            spriteBatch.End();
+
+            
+            
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
