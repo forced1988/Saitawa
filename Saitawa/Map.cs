@@ -18,13 +18,16 @@ namespace Saitawa
         private GraphicsDevice gd;
 
         private Texture2D[] textureMap;
+
+        private short[] tileMap;
+        private Texture2D tileMapTexture;
         private TextureGen textureGenerator;
         private SpriteFont font;
         private int tileSize;
 
+        //23x8
 
-
-        public Map(SpriteBatch sb, GraphicsDevice gd, int width, int height,int tileSize = 16, SpriteFont font = null)
+        public Map(SpriteBatch sb, GraphicsDevice gd, int width, int height,int tileSize = 16, SpriteFont font = null,Texture2D tileMapTexture = null)
         {
             this.width = width;
             this.height = height;
@@ -32,16 +35,20 @@ namespace Saitawa
             this.gd = gd;
             this.tileSize = tileSize;
             this.textureMap = new Texture2D[width*height];
+            this.tileMap = new short[width * height];
             this.textureGenerator = new TextureGen(gd);
             this.font = font;
-        }
+            this.tileMapTexture = tileMapTexture;
 
+        }
 
         public void GenerateRandomMap()
         {
+            Random rnd = new Random();
             for (int i = 0; i < textureMap.Length; i++)
             {
-                textureMap[i] = textureGenerator.GetRandomTextureWithBorder(tileSize);
+                //textureMap[i] = textureGenerator.GetRandomTextureWithBorder(tileSize);
+                tileMap[i] = (short)rnd.Next(0, 23 * 8 - 1);
             }
         }
 
@@ -58,6 +65,19 @@ namespace Saitawa
 
             // Camera
             // Use screensize && camera location to render the X/Y based map on the correct position
+
+
+
+            // 10 x 10
+            //[100]
+
+            //21
+            // x = 1
+            // y = 2
+
+            // 21 / 10 = 2.1 = 2 = Y
+            // 21 -  (y x width) = 1 = X 
+
 
 
             //0,1,2,3,4,5
@@ -91,9 +111,22 @@ namespace Saitawa
                         continue;
                     }
 
-                    sb.Draw(textureMap[flatIndex], new Vector2(texturePositionX, texturePositionY));
-                    sb.DrawString(this.font, $"{textureIndexX}", new Vector2(texturePositionX, texturePositionY), Color.Black);
-                    sb.DrawString(this.font, $"{textureIndexY}", new Vector2(texturePositionX, texturePositionY + 12), Color.Black);
+                    //sb.Draw(textureMap[flatIndex], new Vector2(texturePositionX, texturePositionY));
+                    var tileNumber = tileMap[flatIndex];
+
+                    //181
+                    //181 / 23
+                    //7
+                    //181 - (7 * 23)
+
+                    int yTilePos = tileNumber / (tileMapTexture.Width / tileSize);
+                    int xTilePos = tileNumber - (yTilePos * (tileMapTexture.Width / tileSize));
+
+                    Vector2 tilePosition = new Vector2(xTilePos * tileSize,yTilePos * tileSize);
+                    sb.Draw(tileMapTexture, new Vector2(texturePositionX, texturePositionY), sourceRectangle:new Rectangle((int)tilePosition.X,(int)tilePosition.Y,tileSize,tileSize));
+
+                    //sb.DrawString(this.font, $"{textureIndexX}", new Vector2(texturePositionX, texturePositionY), Color.Black);
+                    //sb.DrawString(this.font, $"{textureIndexY}", new Vector2(texturePositionX, texturePositionY + 12), Color.Black);
                     //sb.DrawString(this.font, $"{flatIndex}", new Vector2(texturePositionX, texturePositionY + 12), Color.Black);
                 }
 

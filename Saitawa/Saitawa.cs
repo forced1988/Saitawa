@@ -49,9 +49,10 @@ namespace Saitawa
             camera = new Camera(GraphicsDevice);
 
             SpriteFont font = Content.Load<SpriteFont>("fonts/Arial");
+            Texture2D tileMapTexture = Content.Load<Texture2D>("tileset/tiles_packed");
 
 
-            map = new Map(spriteBatch,GraphicsDevice,100,100,32, font);
+            map = new Map(spriteBatch,GraphicsDevice,100,100,16, font,tileMapTexture);
             map.GenerateRandomMap();
 
             // TODO: use this.Content to load your game content here
