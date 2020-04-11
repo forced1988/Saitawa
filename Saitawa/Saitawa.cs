@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Saitawa.Player;
 
 namespace Saitawa
 {
@@ -11,6 +12,8 @@ namespace Saitawa
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Map map;
+        private Camera camera;
 
         public Saitawa()
         {
@@ -39,6 +42,9 @@ namespace Saitawa
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            camera = new Camera(GraphicsDevice);
+            map = new Map(spriteBatch,GraphicsDevice,100,100,16);
+            map.GenerateRandomMap();
 
             // TODO: use this.Content to load your game content here
         }
@@ -62,6 +68,8 @@ namespace Saitawa
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            camera.HandleInput(gameTime);
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -73,7 +81,9 @@ namespace Saitawa
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Transparent);
+            
+            map.Draw(gameTime,camera);
 
             // TODO: Add your drawing code here
 
