@@ -77,9 +77,14 @@ namespace Saitawa
                     //TextureMapIndex
                     var flatIndex = (textureIndexY * width + textureIndexX);
 
+                    if (flatIndex < 0 || flatIndex > textureMap.Length) {
+                        continue;
+                    }
+
                     float texturePositionX = textureIndexX * tileSize;
                     float texturePositionY = textureIndexY * tileSize;
 
+                    
 
                     sb.Draw(textureMap[flatIndex], new Vector2(texturePositionX, texturePositionY));
                 }
