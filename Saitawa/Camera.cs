@@ -76,14 +76,14 @@ namespace Saitawa
         }
 
         public void Draw(GameTime time, SpriteBatch sb) {
-            Texture2D SimpleTexture = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-            SimpleTexture.SetData(new[] { Color.White });
-            sb.Draw(SimpleTexture, new Rectangle((int)TopLeft.X, (int)BottomRight.Y, GraphicsDevice.Viewport.Width / 2, 1), Color.White);
+            //Texture2D SimpleTexture = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            //SimpleTexture.SetData(new[] { Color.White });
+            //sb.Draw(SimpleTexture, new Rectangle((int)TopLeft.X, (int)BottomRight.Y, GraphicsDevice.Viewport.Width / 2, 1), Color.White);
 
-            sb.Draw(SimpleTexture, new Rectangle((int)TopLeft.X, (int)TopLeft.Y, 1, GraphicsDevice.Viewport.Height / 2), Color.White);
-            sb.Draw(SimpleTexture, new Rectangle((int)BottomRight.X, (int)TopLeft.Y, 1, GraphicsDevice.Viewport.Height / 2), Color.White);
+            //sb.Draw(SimpleTexture, new Rectangle((int)TopLeft.X, (int)TopLeft.Y, 1, GraphicsDevice.Viewport.Height / 2), Color.White);
+            //sb.Draw(SimpleTexture, new Rectangle((int)BottomRight.X, (int)TopLeft.Y, 1, GraphicsDevice.Viewport.Height / 2), Color.White);
 
-            sb.Draw(SimpleTexture, new Rectangle((int)TopLeft.X, (int)TopLeft.Y, GraphicsDevice.Viewport.Width / 2, 1), Color.White);
+            //sb.Draw(SimpleTexture, new Rectangle((int)TopLeft.X, (int)TopLeft.Y, GraphicsDevice.Viewport.Width / 2, 1), Color.White);
         }
     }
 

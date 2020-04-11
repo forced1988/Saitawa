@@ -45,10 +45,12 @@ namespace Saitawa
         public void GenerateRandomMap()
         {
             Random rnd = new Random();
+            TileDefinition currentTile = TileDefinition.GrassEdgeNW;
             for (int i = 0; i < textureMap.Length; i++)
             {
-                //textureMap[i] = textureGenerator.GetRandomTextureWithBorder(tileSize);
+                
                 tileMap[i] = (short)rnd.Next(0, 23 * 8 - 1);
+                //currentTile = AdjecentTile.GetAdjecentTile(currentTile, TileDirection.EE);
             }
         }
 
