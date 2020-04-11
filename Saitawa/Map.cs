@@ -69,18 +69,14 @@ namespace Saitawa
             int maxX = Math.Min(width * tileSize, (int)camera.BottomRight.X);
             int maxY = Math.Min(height * tileSize, (int)camera.BottomRight.Y);
 
-            for (int x = minX; x < maxX + tileSize; x += tileSize) {
-                for (int y = minY; y < maxY + tileSize; y += tileSize) {
+            for (int x = minX; x < maxX; x += tileSize) {
+                for (int y = minY; y < maxY; y += tileSize) {
                     //WhereToDraw
                     int textureIndexX = x / tileSize;
                     int textureIndexY = y / tileSize;
 
                     //TextureMapIndex
                     var flatIndex = (textureIndexY * width + textureIndexX);
-
-                    if (flatIndex < 0 || flatIndex > textureMap.Length) {
-                        continue;
-                    }
 
                     float texturePositionX = textureIndexX * tileSize;
                     float texturePositionY = textureIndexY * tileSize;
@@ -92,6 +88,7 @@ namespace Saitawa
                     sb.Draw(textureMap[flatIndex], new Vector2(texturePositionX, texturePositionY));
                     sb.DrawString(this.font, $"{textureIndexX}", new Vector2(texturePositionX, texturePositionY), Color.Black);
                     sb.DrawString(this.font, $"{textureIndexY}", new Vector2(texturePositionX, texturePositionY + 12), Color.Black);
+                    //sb.DrawString(this.font, $"{flatIndex}", new Vector2(texturePositionX, texturePositionY + 12), Color.Black);
                 }
 
             }
