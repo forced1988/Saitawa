@@ -66,14 +66,20 @@ namespace Saitawa
             int minX = Math.Max(0, (int)camera.TopLeft.X);
             int minY = Math.Max(0, (int)camera.TopLeft.Y);
 
-            int maxX = Math.Min(width * tileSize, (int)camera.BottomRight.X);
-            int maxY = Math.Min(height * tileSize, (int)camera.BottomRight.Y);
+            int maxX = Math.Min(width * tileSize, (int)camera.BottomRight.X) + tileSize;
+            int maxY = Math.Min(height * tileSize, (int)camera.BottomRight.Y) + tileSize;
 
-            for (int x = minX; x < maxX; x += tileSize) {
+            for (int x = minX; x < maxX ; x += tileSize) {
                 for (int y = minY; y < maxY; y += tileSize) {
                     //WhereToDraw
                     int textureIndexX = x / tileSize;
                     int textureIndexY = y / tileSize;
+
+                    if (textureIndexX >= width)
+                    {
+                        continue;
+                    }
+
 
                     //TextureMapIndex
                     var flatIndex = (textureIndexY * width + textureIndexX);

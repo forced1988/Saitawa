@@ -68,8 +68,8 @@ namespace Saitawa
         }
 
         public void CalculateBounds() {
-            TopLeft = new Vector2(Position.X - (GraphicsDevice.Viewport.Width / 4), Position.Y - (GraphicsDevice.Viewport.Height / 4));
-            BottomRight = new Vector2(TopLeft.X + GraphicsDevice.Viewport.Width / 2, TopLeft.Y + GraphicsDevice.Viewport.Height / 2);
+            TopLeft = new Vector2(Position.X - (GraphicsDevice.Viewport.Width / 2), Position.Y - (GraphicsDevice.Viewport.Height / 2));
+            BottomRight = new Vector2(TopLeft.X + GraphicsDevice.Viewport.Width , TopLeft.Y + GraphicsDevice.Viewport.Height );
 
             //TopLeft = new Vector2(Position.X - (GraphicsDevice.Viewport.Width / 2) + 32, Position.Y - (GraphicsDevice.Viewport.Height / 2) + 32);
             //BottomRight = new Vector2(TopLeft.X + GraphicsDevice.Viewport.Width - 64, TopLeft.Y + GraphicsDevice.Viewport.Height - 64);

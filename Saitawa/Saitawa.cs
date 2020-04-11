@@ -51,7 +51,7 @@ namespace Saitawa
             SpriteFont font = Content.Load<SpriteFont>("fonts/Arial");
 
 
-            map = new Map(spriteBatch,GraphicsDevice,30,30,32, font);
+            map = new Map(spriteBatch,GraphicsDevice,100,100,32, font);
             map.GenerateRandomMap();
 
             // TODO: use this.Content to load your game content here
