@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Saitawa.Generators;
 using Saitawa.Player;
 
 namespace Saitawa
@@ -10,17 +11,17 @@ namespace Saitawa
     /// </summary>
     public class Saitawa : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        Map map;
-        private Camera camera;
+        GraphicsDeviceManager Graphics;
+        SpriteBatch SpriteBatch;
+        Map Map;
+        Camera Camera;
 
         public int ScreenHeight { get; private set; }
         public int ScreenWidth { get; private set; }
 
         public Saitawa()
         {
-            graphics = new GraphicsDeviceManager(this);
+            Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
 
@@ -33,8 +34,8 @@ namespace Saitawa
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            ScreenHeight = graphics.PreferredBackBufferHeight;
-            ScreenWidth = graphics.PreferredBackBufferWidth;
+            ScreenHeight = Graphics.PreferredBackBufferHeight;
+            ScreenWidth = Graphics.PreferredBackBufferWidth;
             base.Initialize();
         }
 
@@ -45,15 +46,15 @@ namespace Saitawa
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            camera = new Camera(GraphicsDevice);
+            SpriteBatch = new SpriteBatch(GraphicsDevice);
+            Camera = new Camera(GraphicsDevice);
 
             SpriteFont font = Content.Load<SpriteFont>("fonts/Arial");
             Texture2D tileMapTexture = Content.Load<Texture2D>("tileset/tiles_packed");
 
 
-            map = new Map(spriteBatch,GraphicsDevice,100,100,16, font,tileMapTexture);
-            map.GenerateRandomMap();
+            Map = new Map(SpriteBatch,GraphicsDevice,100,100,16, font,tileMapTexture);
+            Map.GenerateRandomMap();
 
             // TODO: use this.Content to load your game content here
         }
@@ -77,9 +78,9 @@ namespace Saitawa
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            camera.Update(gameTime);
+            Camera.Update(gameTime);
 
-            camera.HandleInput(gameTime);
+            Camera.HandleInput(gameTime);
 
             // TODO: Add your update logic here
 
@@ -95,12 +96,12 @@ namespace Saitawa
             GraphicsDevice.Clear(Color.Transparent);
 
 
-            spriteBatch.Begin(transformMatrix: camera.Transform);
+            SpriteBatch.Begin(transformMatrix: Camera.Transform);
 
-            map.Draw(gameTime, camera);
-            camera.Draw(gameTime, spriteBatch);
+            Map.Draw(gameTime, Camera);
+            Camera.Draw(gameTime, SpriteBatch);
 
-            spriteBatch.End();
+            SpriteBatch.End();
 
             
             

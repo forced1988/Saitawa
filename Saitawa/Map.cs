@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Saitawa.Generators;
 using Saitawa.Player;
 using Saitawa.Util;
 
@@ -45,46 +46,24 @@ namespace Saitawa
         public void GenerateRandomMap()
         {
             Random rnd = new Random();
-            TileDefinition currentTile = TileDefinition.GrassEdgeNW;
-            for (int i = 0; i < textureMap.Length; i++)
-            {
+
+            var island = new IslandGenerator(width, height, 50);
+            island.GenerateIslands();
+
+            tileMap = island.IslandMap;
+
+            //TileDefinition currentTile = TileDefinition.GrassEdgeNW;
+            //for (int i = 0; i < textureMap.Length; i++)
+            //{
                 
-                tileMap[i] = (short)rnd.Next(0, 23 * 8 - 1);
-                //currentTile = AdjecentTile.GetAdjecentTile(currentTile, TileDirection.EE);
-            }
+            //    tileMap[i] = (short)rnd.Next(0, 23 * 8 - 1);
+            //    //currentTile = AdjecentTile.GetAdjecentTile(currentTile, TileDirection.EE);
+            //}
         }
 
 
         public void Draw(GameTime time, Camera camera)
         {
-            //sb.Begin(SpriteSortMode.Texture,BlendState.AlphaBlend);
-
-            // Map
-            // Fixed X/Y position (tile based => pixels = * tileSize)
-
-            // Viewport
-            // Screensize Width && Height
-
-            // Camera
-            // Use screensize && camera location to render the X/Y based map on the correct position
-
-
-
-            // 10 x 10
-            //[100]
-
-            //21
-            // x = 1
-            // y = 2
-
-            // 21 / 10 = 2.1 = 2 = Y
-            // 21 -  (y x width) = 1 = X 
-
-
-
-            //0,1,2,3,4,5
-            //0,32,64,96,128,160;
-
             int minX = Math.Max(0, (int)camera.TopLeft.X);
             int minY = Math.Max(0, (int)camera.TopLeft.Y);
 
@@ -139,6 +118,10 @@ namespace Saitawa
 
 
             //sb.End();
+        }
+
+        public void DrawVoid() {
+
         }
     }
 }
