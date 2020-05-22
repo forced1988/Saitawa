@@ -75,6 +75,10 @@ namespace Saitawa
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
+           
+
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -87,14 +91,13 @@ namespace Saitawa
             base.Update(gameTime);
         }
 
-        /// <summary>
+        /// <summary >
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Transparent);
-
+            GraphicsDevice.Clear(new Color((float)0.161, (float)0.149, (float)0.204));
 
             SpriteBatch.Begin(transformMatrix: Camera.Transform);
 

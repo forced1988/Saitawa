@@ -65,11 +65,17 @@ namespace Saitawa
             {
                 Position = new Vector2(Position.X, Position.Y + Speed);
             }
+
+
+            //MouseState mouseState = Mouse.GetState();
+
+            //// Update our sprites position to the current cursor 
+            //Position = new Vector2(mouseState.X, mouseState.Y + Speed);
         }
 
         public void CalculateBounds() {
             TopLeft = new Vector2(Position.X - (GraphicsDevice.Viewport.Width / 2), Position.Y - (GraphicsDevice.Viewport.Height / 2));
-            BottomRight = new Vector2(TopLeft.X + GraphicsDevice.Viewport.Width , TopLeft.Y + GraphicsDevice.Viewport.Height );
+            BottomRight = new Vector2(TopLeft.X + GraphicsDevice.Viewport.Width, TopLeft.Y + GraphicsDevice.Viewport.Height);
 
             //TopLeft = new Vector2(Position.X - (GraphicsDevice.Viewport.Width / 2) + 32, Position.Y - (GraphicsDevice.Viewport.Height / 2) + 32);
             //BottomRight = new Vector2(TopLeft.X + GraphicsDevice.Viewport.Width - 64, TopLeft.Y + GraphicsDevice.Viewport.Height - 64);

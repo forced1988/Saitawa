@@ -51,14 +51,6 @@ namespace Saitawa
             island.GenerateIslands();
 
             tileMap = island.IslandMap;
-
-            //TileDefinition currentTile = TileDefinition.GrassEdgeNW;
-            //for (int i = 0; i < textureMap.Length; i++)
-            //{
-                
-            //    tileMap[i] = (short)rnd.Next(0, 23 * 8 - 1);
-            //    //currentTile = AdjecentTile.GetAdjecentTile(currentTile, TileDirection.EE);
-            //}
         }
 
 
@@ -102,6 +94,17 @@ namespace Saitawa
 
                     int yTilePos = tileNumber / (tileMapTexture.Width / tileSize);
                     int xTilePos = tileNumber - (yTilePos * (tileMapTexture.Width / tileSize));
+
+                    //if(tileNumber == TileDefinition.Void) {
+                    //    Color[] background = new Color[] { new Color((float)16.1, (float)14.9, (float)20.4) };
+                    //    var tex = new Texture2D(gd, textureSize, textureSize, false, SurfaceFormat.Color);
+                    //    tex.SetData(background)
+
+                    //    Vector2 tilePosition = new Vector2(xTilePos * tileSize, yTilePos * tileSize);
+                    //    sb.Draw(tex, new Vector2(texturePositionX, texturePositionY), sourceRectangle: new Rectangle((int)tilePosition.X, (int)tilePosition.Y, tileSize, tileSize));
+
+                    //} else { 
+                    //}
 
                     Vector2 tilePosition = new Vector2(xTilePos * tileSize,yTilePos * tileSize);
                     sb.Draw(tileMapTexture, new Vector2(texturePositionX, texturePositionY), sourceRectangle:new Rectangle((int)tilePosition.X,(int)tilePosition.Y,tileSize,tileSize));

@@ -6,18 +6,31 @@ using System.Threading.Tasks;
 
 namespace Saitawa.Util
 {
+	[Flags]
 	public enum TileDefinition
 	{
-		Grass = 28,
+		Grass = 27,
 		GrassEdgeNN = 1,
 		GrassEdgeNE = 5,
-		GrassEdgeEE = 17,
-		GrassEdgeSE = 18,
-		GrassEdgeSS = 19,
-		GrassEdgeSW = 20,
+		GrassEdgeEE = 28,
+		GrassEdgeSE = 97,
+		GrassEdgeSS = 94,
+		GrassEdgeSW = 92,
 		GrassEdgeWW = 23,
 		GrassEdgeNW = 0,
-		Void = 368
+
+		StoneEdgeLeft1 = 115,
+		StoneEdgeLeft2 = 115 + 23,
+		StoneEdgeLeft3 = 115 + 23 + 23,
+
+		StoneEdge1 = 117,
+		StoneEdge2 = 117 + 23,
+		StoneEdge3 = 117 + 23 + 23,
+
+		StoneEdgeRight1 = 119,
+		StoneEdgeRight2 = 119 + 23,
+		StoneEdgeRight3 = 119 + 23 + 23,
+		Void = 183
 	}
 
 	public enum TileDirection
